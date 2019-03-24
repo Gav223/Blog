@@ -1,2 +1,2 @@
-# Blog
+# blog
 php personal blog
