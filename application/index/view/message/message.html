@@ -1,0 +1,104 @@
+{extend name="base" /}
+{block name='content'}
+<div class="whitebg">
+    <h2 class="htitle">留言</h2>
+    <div class="news_infos m20">
+        <div class="gbox">
+            <form action="{:url('Message/add')}" method="post" name="form1" id="form1" onsubmit="return check(document.form1)">
+                <p> <strong>来说点儿什么吧...</strong></p>
+                <p><span> 您的姓名:</span>
+                    <input name="name" type="text" id="name">
+                    *</p>
+                <p><span>选择头像:</span> *</p>
+                <p> <i>
+                    <input type="radio" value="http://localhost/__USR__/images/tx1.jpg" id="1" name="image" style="display:none" selected="">
+                    <img id="a" src="__USR__/images/tx1.jpg" onclick="myFun(this.id)"></i> <i>
+                    <input type="radio" value="http://localhost/__USR__/images/tx2.jpg" id="2" name="image" style="display:none">
+                    <img id="b" src="__USR__/images/tx2.jpg" onclick="myFun(this.id)"></i> <i>
+                    <input type="radio" value="http://localhost/__USR__/images/tx3.jpg" id="3" name="image" style="display:none">
+                    <img id="c" src="__USR__/images/tx3.jpg" onclick="myFun(this.id)"></i> <i>
+                    <input type="radio" value="http://localhost/__USR__/images/tx4.jpg" id="4" name="image" style="display:none">
+                    <img id="d" src="__USR__/images/tx4.jpg" onclick="myFun(this.id)"></i> <i>
+                    <input type="radio" value="http://localhost/__USR__/images/tx5.jpg" id="5" name="image" style="display:none">
+                    <img id="e" src="__USR__/images/tx5.jpg" onclick="myFun(this.id)"></i> <i>
+                    <input type="radio" value="http://localhost/__USR__/images/tx6.jpg" id="6" name="image" style="display:none">
+                    <img id="f" src="__USR__/images/tx6.jpg" onclick="myFun(this.id)"></i> <i>
+                    <input type="radio" value="http://localhost/__USR__/images/tx7.jpg" id="7" name="image" style="display:none">
+                    <img id="g" src="__USR__/images/tx7.jpg" onclick="myFun(this.id)"></i> <i>
+                    <input type="radio" value="http://localhost/__USR__/images/tx8.jpg" id="8" name="image" style="display:none">
+                    <img id="h" src="__USR__/images/tx8.jpg" onclick="myFun(this.id)"></i>
+                </p>
+                <p><span class="tnr">留言内容:</span>
+                    <textarea name="content" cols="60" rows="12" id="lytext"></textarea>
+                </p>
+                <p>
+                    <input type="submit"  value="提交">
+                    <input  type="hidden" id="enews" value="AddGbook">
+                </p>
+            </form>
+        </div>
+
+        {foreach $messageList as $key => $value}
+        <div class="fb">
+            <ul>
+                        <span class="tximg">
+                            {if $value['image'] == NULL}
+                            <img src="http://localhost/__USR__/images/tx1.jpg">
+                            {else/}
+                            <img src="{$value['image']}">
+                            {/if}
+                        </span>
+                <p class="fbtime"><span>{$value['create_time']}</span>{$value['name']}</p>
+                <p class="fbinfo">{$value['content']}</p>
+            </ul>
+        </div>
+        {if $value['is_reply'] == 1}
+        <div class="hf">
+            <ul>
+                <p class="zzhf"><font color="#FF0000">站长回复:</font>{$value['reply_content']}</p>
+            </ul>
+        </div>
+        {/if}
+        {/foreach}
+
+        <div class="clear"></div>
+        <div class="pagelist"></div>
+
+        <script>
+            function myFun(sId) {
+
+                var oImg = document.getElementsByTagName('img');
+
+                for (var i = 0; i < oImg.length; i++) {
+                    if (oImg[i].id == sId) {
+                        oImg[i].previousSibling.previousSibling.checked = true;
+                        oImg[i].style.opacity = '1';
+                    } else {
+                        oImg[i].style.opacity = '.8';
+
+                    }
+                }
+            }
+
+            function check(obj)
+            {
+                if(obj.name.value=="")
+                {
+                    alert("姓名不能为空");
+                    obj.name.focus();
+                    return false;
+                }
+                if(obj.lytext.value=="")
+                {
+                    alert("留言内容不能为空");
+                    obj.lytext.focus();
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </div>
+    <!--newsinfo end-->
+
+</div>
+{/block}

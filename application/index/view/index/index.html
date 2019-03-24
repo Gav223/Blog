@@ -1,0 +1,185 @@
+{extend name="base" /}
+
+{block name="content"}
+  <!--lbox begin-->
+  <div class="lbox">
+    <!--banbox begin-->
+    <div class="banbox">
+      <div class="banner">
+        <div id="banner" class="fader">
+          {foreach $newArticleList as $key => $value}
+            <li class="slide" >
+              <a href="{:url('Article/details' , ['id' => $value['id']])}" target="_blank">
+                <img src="{$value['image']}">
+              </a>
+            </li>
+          {/foreach}
+          <div class="fader_controls">
+            <div class="page prev" data-target="prev"></div>
+            <div class="page next" data-target="next"></div>
+            <ul class="pager_list">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--banbox end-->
+    <!--headline begin-->
+    <div class="headline">
+      <ul>
+        {foreach $newArticleList as $key => $value}
+          <li>
+            <a href="{:url('Article/details' , ['id' => $value['id']])}" title="{$value['name']}">
+              <img src="{$value['image']}" alt="{$value['name']}">
+              <span>{$value['name']}</span>
+            </a>
+          </li>
+        {/foreach}
+      </ul>
+    </div>
+    <!--headline end-->
+    <div class="clearblank"></div>
+    <div class="tab_box whitebg">
+      <div class="tab_buttons">
+        <ul>
+          {foreach $cateList as $key => $value}
+          {if $key == 0}
+          <li class="newscurrent">{$value['name']}</li>
+          {else/}
+          <li class="">{$value['name']}</li>
+          {/if}
+
+          {/foreach}
+        </ul>
+      </div>
+      <div class="newstab">
+        {foreach $cateList as $key => $value}
+        <div class="newsitem">
+          <div class="newspic">
+            <ul>
+              {if isset($value['articleList'][0])}
+              <li><a href="{:url('Article/details' , ['id' => $value['articleList'][0]['id']])}"><img src="{$value['articleList'][0]['image']}"><span>{$value['articleList'][0]['name']}</span></a></li>
+              {/if}
+              {if isset($value['articleList'][1])}
+              <li><a href="{:url('Article/details' , ['id' => $value['articleList'][1]['id']])}"><img src="{$value['articleList'][1]['image']}"><span>{$value['articleList'][1]['name']}</span></a></li>
+              {/if}
+            </ul>
+          </div>
+          <ul class="newslist">
+            {foreach $value['articleList'] as $k => $v}
+            <li><i></i><a href="{:url('Article/details' , ['id' => $v['id']])}">{$v['name']}</a>
+              <p>{$v['description']}</p>
+            </li>
+            {/foreach}
+          </ul>
+        </div>
+        {/foreach}
+      </div>
+    </div>
+    <!--tab_box end-->
+    <div class="whitebg bloglist">
+      <h2 class="htitle">最新博文</h2>
+      <ul>
+        <!--单图-->
+        {foreach $articleData['list'] as $key => $value}
+        <li>
+          <h3 class="blogtitle"><a href="/" target="_blank">
+            <b>{if ($value['is_top'] == 1)}【顶】{/if}</b>{$value['name']}</a></h3>
+          <span class="blogpic imgscale">
+              <i><a href="{:url('Article/details',['id' => $value['id']])}">文章</a></i>
+              <a href="{:url('Article/details',['id' => $value['id']])}" title="">
+                <img src="{$value['image']}" alt="">
+              </a>
+            </span>
+          <p class="blogtext">{$value['description']}</p>
+          <p class="bloginfo"><i class="avatar"></i><span>{$value['admin_name']}</span><span>{$value['create_time']}</span>
+          </p>
+          <a href="{:url('Article/details',['id' => $value['id']])}" class="viewmore">阅读更多</a>
+        </li>
+        {/foreach}
+      </ul>
+    </div>
+    <div class="page">
+      {$articleData['page']|raw}
+    </div>
+
+
+    <!--bloglist end-->
+  </div>
+<div class="rbox">
+  <div class="card">
+    <h2>我的名片</h2>
+    <p>网名：Ali | 因吹斯挺</p>
+    <p>职业：PHP程序员</p>
+    <p>现居：广东-深圳</p>
+    <p>Email：1370059551@qq.com</p>
+    <ul class="linkmore">
+      <li><a href="#" target="_blank" class="iconfont icon-zhuye" title="网站地址"></a></li>
+      <li><a href="#" target="_blank" class="iconfont icon-youxiang" title="我的邮箱"></a></li>
+      <li><a href="#" target="_blank" class="iconfont icon---" title="QQ联系我"></a></li>
+      <li id="weixin"><a href="#" target="_blank" class="iconfont icon-weixin" title="关注我的微信"></a><i><img src="images/wx.png"></i></li>
+    </ul>
+  </div>
+
+  <div class="whitebg notice">
+    <h2 class="htitle">最近更新</h2>
+    <ul>
+      {foreach $newArticleList as $key => $value}
+      <li>
+        <a href="{:url('Article/details' , ['id' => $value['id']])}" title="{$value['name']}" target="_blank">
+          {$value['name']}
+        </a>
+      </li>
+      {/foreach}
+    </ul>
+  </div>
+
+  <div class="whitebg paihang">
+    <h2 class="htitle">点击排行</h2>
+    {if (isset($article['rankList'][0]))}
+    <section class="topnews imgscale">
+      <a href="{:url('Article/details',['id' => $rankList[0]['id']])}">
+        <img src="{$rankList[0]['image']}">
+        <span>{$rankList[0]['name']}</span>
+      </a>
+    </section>
+    {/if}
+    <ul>
+      {foreach $rankList as $key => $value}
+      <li><i></i><a href="{:url('Article/details',['id' => $value['id']])}" title="{$value['name']}" target="_blank">{$value['name']}</a></li>
+      {/foreach}
+    </ul>
+  </div>
+
+  <div class="whitebg tuijian">
+    <h2 class="htitle">站长推荐</h2>
+    <section class="topnews imgscale">
+      {if (isset($recommendedList[0]))}
+      <a href="{:url('Article/details' , ['id' => $recommendedList[0]['id']])}">
+        <img src="{$recommendedList[0]['image']}"><span>{$recommendedList[0]['name']}</span>
+      </a>
+      {/if}
+    </section>
+    <ul>
+      {foreach $recommendedList as $key => $value}
+      <li>
+        <a href="{:url('Article/details' , ['id' => $recommendedList[0]['id']])}">
+          <i><img src="{$value['image']}"></i>
+          <p>{$value['name']}</p>
+        </a>
+      </li>
+      {/foreach}
+    </ul>
+  </div>
+
+  <div class="whitebg tongji">
+    <h2 class="htitle">站点信息</h2>
+    <ul>
+      <li><b>建站时间</b>：2019-02-14</li>
+      <li><b>使用语言</b>：PHP</li>
+      <li><b>使用框架</b>：Thinkphp5.1</li>
+      <li><b>主题模板</b>：<a href="http://www.yangqq.com" target="_blank">《今夕何夕》</a></li>
+    </ul>
+  </div>
+</div>
+{/block}
