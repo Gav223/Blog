@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'admin123',
+    'database'        => 'blog',
     // 用户名
-    'username'        => 'admin123',
+    'username'        => 'blog',
     // 密码
-    'password'        => 'admin123',
+    'password'        => 'blog',
     // 端口
     'hostport'        => '',
     // 连接dsn

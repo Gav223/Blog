@@ -34,8 +34,8 @@ return [
     'taglib_end'   => '}',
     //
     'tpl_replace_string' => [
-        '__ADMIN__' => '/tp5/public/static/admin' ,
-        '__USR__' => '/tp5/public/static/index',
-        '__ADMIN-VIEW__' => '/tp5/application/admin/view'
+        '__ADMIN__' => '/static/admin' ,
+        '__USR__' => '/static/index',
+        '__ADMIN-VIEW__' => '/../application/admin/view'
     ]
 ];
